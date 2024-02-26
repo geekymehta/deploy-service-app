@@ -1,9 +1,11 @@
 const { exec } = require("child_process");
 const path = require("path");
 
-const { publishLog } = require("../config/redisConfig");
+async function buildProject(id, publisher) {
+  async function publishLog(id, log) {
+    await publisher.publish(`logs:${id}`, JSON.stringify({ log }));
+  }
 
-async function buildProject(id) {
   return new Promise((resolve, reject) => {
     console.log("running scipt");
     publishLog(id, "Starting build");

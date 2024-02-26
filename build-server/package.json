@@ -1,5 +1,5 @@
 {
-  "name": "api-server",
+  "name": "build-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --ignore output"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {

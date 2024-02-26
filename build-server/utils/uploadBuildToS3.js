@@ -2,12 +2,18 @@ const { PutObjectCommand } = require("@aws-sdk/client-s3");
 const mime = require("mime-types");
 const fs = require("fs");
 const path = require("path");
-const { publishLog } = require("../config/redisConfig");
 const { s3Client } = require("../config/awsConfig");
 
-async function uploadBuildToS3(id) {
+const { createClient } = require("redis");
+
+async function uploadBuildToS3(id, publisher) {
+  async function publishLog(id, log) {
+    await publisher.publish(`logs:${id}`, JSON.stringify({ log }));
+  }
+
   const parentDir = path.dirname(__dirname);
   const distFolderPath = path.join(parentDir, "output", `${id}`, "dist");
+  console.log(distFolderPath);
   const distFolderContents = fs.readdirSync(distFolderPath, {
     recursive: true,
   });
